@@ -14,8 +14,4 @@ This repository contains:
 ## Repository Structure
 
 ```text
-labs/
-scripts/
-examples/
-notes/
-resources/
+modules/
