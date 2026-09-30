@@ -1,0 +1,167 @@
+echo "What is the students name?"
+read student
+echo "" >> $student.txt
+echo "###############$student###########" >> $student.txt
+echo "" >> $student.txt
+
+echo "PASS_MAX_DAYS should be 45" >> $student.txt
+grep PASS_MAX_DAYS /etc/login.defs >> $student.txt
+echo "PASS_WARN_AGE should be 16" >> $student.txt
+grep PASS_WARN_AGE /etc/login.defs >> $student.txt
+echo "UID_MIN should be 5000" >> $student.txt
+grep UID_MIN /etc/login.defs >> $student.txt
+echo "UID_MAX should be 5999" >> $student.txt
+grep UID_MAX /etc/login.defs >> $student.txt
+echo "GID_MIN should be 9000" >> $student.txt
+grep GID_MIN /etc/login.defs >> $student.txt
+echo "GID_MAX should be 9999" >> $student.txt
+grep GID_MAX /etc/login.defs >> $student.txt
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+echo "limits.conf file should have 6 entries below" >> $student.txt
+
+grep @hr /etc/security/limits.conf >> limits.tmp
+grep @is /etc/security/limits.conf >> limits.tmp
+grep @sm /etc/security/limits.conf >> limits.tmp
+grep @rd /etc/security/limits.conf >> limits.tmp
+grep @af /etc/security/limits.conf >> limits.tmp
+grep @users /etc/security/limits.conf >> limits.tmp
+cat -n limits.tmp >> $student.txt
+rm -rf limits.tmp
+
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+
+
+echo "** Welcome to XYZ Corporation – Messages for Today ** should appear in motd file entry below" >> $student.txt
+tail /etc/motd >> $student.txt
+
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+
+echo "/etc/skel should contain 2 directories" >> $student.txt
+echo "/etc/skel/calendar should contain 3 calendars" >> $student.txt
+echo "/etc/skel/work should contain the policy.txt and welcome.txt" >> $student.txt
+ls -lR /etc/skel >> $student.txt
+
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+
+echo "/etc/group should contain 8 groups" >> $student.txt
+echo "/etc/group GIDs should begin at 9000" >> $student.txt
+echo "jason, arron, emily should be in sa group" >> $student.txt
+echo "angel, isaac should be in ma group" >> $student.txt
+echo "jacob should be in MOTD group" >> $student.txt
+echo "jacob, james, jason, sarah and julia should be in directors group" >> $student.txt
+echo "jacob and grace should be in the shadow group" >> $student.txt
+grep hr:x: /etc/group >> group.tmp
+grep is:x: /etc/group >> group.tmp
+grep sm:x: /etc/group >> group.tmp
+grep rd:x: /etc/group >> group.tmp
+grep af:x: /etc/group >> group.tmp
+grep sa:x: /etc/group >> group.tmp
+grep ma:x: /etc/group >> group.tmp
+grep motd:x: /etc/group >> group.tmp
+grep directors:x: /etc/group >> group.tmp
+grep shadow:x: /etc/group >> group.tmp
+lid -g sa
+lid -g ma
+lid -g motd
+cat -n group.tmp >> $student.txt
+rm -rf group.tmp
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+
+echo "/home/public should contain 7 entries" >> $student.txt
+echo "/home/public should have rwxrwxr-x permissions" >> $student.txt
+echo "/home/public group owner should be directory name" >> $student.txt
+
+ls -l /home/public | cat -n >> $student.txt
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+
+
+echo "/home/private should contain 7 entries" >> $student.txt
+echo "/home/private should have rwxrwx--- permissions" >> $student.txt
+echo "/home/private group owner should be directory name" >> $student.txt
+
+ls -l /home/private | cat -n >> $student.txt
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+
+echo "/home/shared should contain 7 entries" >> $student.txt
+echo "/home/shared should have rwxrwxrwx permissions" >> $student.txt
+echo "/home/shared group owner should be directory name" >> $student.txt
+
+ls -l /home/shared | cat -n >> $student.txt
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+echo "Comments fields should be as example 'TOMmy JOnes'" >> $student.txt
+ tail -n 30 /etc/passwd >> comment.tmp
+cat -n comment.tmp | tail -n 1 >> $student.txt
+rm -rf comment.tmp
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+echo "30 usernames should be 3 char of fist + 2 char of last" >> $student.txt
+ tail -n 30 /etc/passwd >> username.tmp
+cat -n username.tmp | tail -n 1 >> $student.txt
+rm -rf username.tmp
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+echo "See if caleb, emily, faith account has been expired" >> $student.txt
+grep caleb /etc/shadow | cut -d : -f 1,8 >> $student.txt
+grep emily /etc/shadow | cut -d : -f 1,8 >> $student.txt
+grep faith /etc/shadow | cut -d : -f 1,8 >> $student.txt
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+echo "See if kevin account has been disabled" >> $student.txt
+grep kevin /etc/shadow | cut -c 1-20 >> $student.txt
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+echo "See if kayla account has been disabled" >> $student.txt
+grep kayla /etc/shadow | cut -c 1-20 >> $student.txt
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+echo "See if james account has a login message" >> $student.txt
+grep Monday /home/james/.bash_profile >> $student.txt
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+echo "Verify that network access exists" >> $student.txt
+ping -c 5 google.com | tail -n 2 | head -n 1 >> $student.txt
+
+
+echo "" >> $student.txt
+echo "##################################" >> $student.txt
+echo "" >> $student.txt
+
+cp $student.txt /var/ftp/pub
+systemctl start vsftpd
+ip addr
